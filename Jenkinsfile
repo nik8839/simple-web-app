@@ -2,6 +2,8 @@ pipeline {
     agent any
 
     environment {
+        // Ensure the PATH includes the directories for Node.js and npm
+        // PATH = "${PATH}:/usr/bin:/usr/local/bin"  // Adjust as needed
         // Docker image name
         DOCKER_IMAGE = "nikhil112/web-app:${env.BUILD_NUMBER}"
     }
@@ -10,7 +12,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 // Pull the source code from GitHub
-                git 'https://github.com/nik8839/simple-web-app.git'
+                git credentialsId: 'github-credentials', url: 'https://github.com/nik8839/simple-web-app.git'
             }
         }
 
